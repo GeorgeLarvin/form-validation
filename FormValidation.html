@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>From validation</title>
+	<link href="https://fonts.googleapis.com/css?family=Arima+Madurai|Pavanam" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	
+	
+</head>
+<style>
+ body {
+	font-family:helvetica, sans-serif;
+	font-size:120%;
+	font-family: 'Arima Madurai', cursive;
+	font-family: 'Pavanam', sans-serif;
+ }
+
+ #wrapper {
+	width:600px;
+	margin:0 auto;
+ }
+ 
+ input {
+	height:20px;
+	padding:5px;
+	padding-left:40px;
+	font-size:20px;
+	border-radius:4px;
+	border: 1px solid grey;
+	width:290px;
+	font-family: 'Arima Madurai', cursive;
+	font-family: 'Pavanam', sans-serif;
+ }
+
+ label {
+	positio:relative;
+	top:5px;
+	left:15px;
+	float:left;
+	width:150px;
+ }
+ 
+ .form-element {
+	margin:10px;
+ }
+ 
+ #signin-button {
+	height:35px;
+	border-radius:5px;
+	border:1px solid grey;
+	width:120px;
+	opacity:0.9;
+	background-color:#C0BEBF;
+	font-size:1.1em;
+	color:black;
+	font-family: 'Arima Madurai', cursive;
+	font-family: 'Pavanam', sans-serif;
+	margin-left:160px;
+ } 
+
+ #error-Message {
+	font-size:0.8em;
+	color:red;
+ }
+
+ #success-Message {
+	font-size:1.1em;
+	color:green;
+	display:none;
+	padding-top:15px;	
+	margin-left:160px;
+ }
+ 
+</style>
+<body>
+
+<div id="wrapper">
+
+	<div class="form-element">
+		<label for="email">Email </label> 
+		<input type="text" id="email" name="email" placeholder="eg. your email@gmail.com"/>
+	</div>
+	
+	<div class="form-element">
+		<label for="number">Number </label>
+		<input type="text" id="number" placeholder="eg.566444"/>
+	</div>
+	
+	<div class="form-element">
+		<label for="password">Password</label>
+		<input type="password" id="password"/>
+	</div>
+	
+	<div class="form-element">
+		<label for="confirm-password">confirm password </label>
+		<input type="password" id="confirm-password"/>
+	</div>
+	
+		<button id="signin-button">Sign up</button>
+		
+	<div id="error-Message"></div>
+	<div id="success-Message">you have signed up!</div>	
+		
+</div>
+
+<script>
+
+	function isEmail(email) {
+		var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+		return regex.test(email);
+	}
+
+	$("#signin-button").click(function(){
+	
+	var errorMessage = "";
+	var emptyField = "";
+	
+	//empty fields	
+	if($("#email").val() == "" ){
+		emptyField += "<br>Email"; 
+	}	
+		
+	if($("#number").val() == "" ){
+		emptyField+= "<br>Number"; 
+	}	
+	
+		
+	if($("#password").val() == "" ){
+		emptyField += "<br>Password"; 
+	}	
+	
+	if($("#confirm-password").val() == "" ){
+		emptyField += "<br>Password confirm"; 
+	}	
+		
+	if(emptyField != ""){
+		errorMessage += "<br>the following field(s) are missing" +
+		emptyField;
+	}
+		
+	//validation	
+	if(isEmail($("#email").val())==false ) {
+		
+		errorMessage += "<p>Your email adress is not valid</p>";
+		
+	} 
+	
+	if($.isNumeric($("#number").val()) == false) {
+	
+		errorMessage += "<p>it appears that your phone number is not numeric</p>";
+	
+	}
+	
+	if($("#password").val() !== $("#confirm-password").val() ) {
+	
+		errorMessage += ("<p>Your passwords do not match</p>");
+	
+	}
+	
+	
+	if(errorMessage != "") {
+	
+		$("#error-Message").html(errorMessage);
+		
+	} 
+	
+	if(errorMessage == "" ){
+		
+		$("#success-Message").show();
+		$("#error-Message").hide();
+	
+	}
+	
+	});
+	
+	
+</script>
+
+</body>
+</html>	
